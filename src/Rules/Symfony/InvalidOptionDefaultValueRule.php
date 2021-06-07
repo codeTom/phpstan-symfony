@@ -10,7 +10,6 @@ use PHPStan\ShouldNotHappenException;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\BooleanType;
-use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
@@ -69,7 +68,7 @@ final class InvalidOptionDefaultValueRule implements Rule
 
 		// not an array
 		if (($mode & 8) !== 8) {
-			$checkType = new UnionType([new StringType(), new IntegerType(), new NullType(), new BooleanType()]);
+			$checkType = new UnionType([new StringType(), new NullType(), new BooleanType()]);
 			if (!$checkType->isSuperTypeOf($defaultType)->yes()) {
 				return [sprintf('Parameter #5 $default of method Symfony\Component\Console\Command\Command::addOption() expects %s, %s given.', $checkType->describe(VerbosityLevel::typeOnly()), $defaultType->describe(VerbosityLevel::typeOnly()))];
 			}
